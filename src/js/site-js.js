@@ -60,13 +60,24 @@ function isItemInCategories(categories, visibleCategories) {
   });
 }
 
-function reflowEntries() {
-  var entries = document.querySelectorAll('.timeline-entry[aria-hidden="false"]');
+function reflowEntries(isSorted) {
+  const entriesContainer = document.querySelector('.timeline'); 
+  var entries = entriesContainer.querySelectorAll('.timeline-entry[aria-hidden="false"]');
+
+  if (isSorted) {  
+    entries = Array.from(entries).reverse();
+    
+    entries.forEach(function (entry) {
+      entriesContainer.appendChild(entry);
+    });
+  }
+
   for (var i = 0; i < entries.length; i++) {
     var entry = entries[i];
     entry.classList.remove('odd', 'even', 'first');
     if (i === 0) {
       entry.classList.add('first');
+      entry.classList.remove('short');
     }
     if (i % 2 === 0) {
       entry.classList.add('even');
@@ -86,6 +97,25 @@ function onload() {
     box.addEventListener('click', hideUnchecked);
   });
   document.querySelector('input[type="checkbox"]#all').addEventListener('click', checkAll);
+
+  document.querySelector('.btn-sort-entries').addEventListener('click', function () {
+    const icon = this.querySelector('.fas');
+    const textElement = this.querySelector('.sort-text');
+
+    if (this.getAttribute('data-sort') === "asc") {
+      icon.classList.remove('fa-caret-down');
+      icon.classList.add('fa-caret-up');
+      textElement.innerText = 'Mais recente';
+      this.setAttribute('data-sort', 'desc');
+    } else {
+      icon.classList.remove('fa-caret-up');
+      icon.classList.add('fa-caret-down');
+      textElement.innerText = 'Mais antigo';
+      this.setAttribute('data-sort', 'asc');
+    }
+
+    reflowEntries(true);
+  });
 
   /* Back to top button */
   const btnBackToTop = document.querySelector('.btn-back-to-top');
