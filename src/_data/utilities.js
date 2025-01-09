@@ -1,4 +1,5 @@
 const moment = require('moment');
+moment.locale('pt');
 
 const sentenceCase = function (str) {
   if (typeof str !== 'string' || !str.length) {
@@ -8,12 +9,8 @@ const sentenceCase = function (str) {
   return str[0].toUpperCase() + str.slice(1).toLowerCase();
 };
 
-const humanizeDate = function (datetime, date) {
-  const m = moment(datetime || date);
-  if (datetime) {
-    return m.format('LLL');
-  }
-  return m.format('LL');
+const humanizeDate = function (date) {
+  return moment(date).format('LL');
 };
 
 const isWrappedInParagraphTags = function (html) {

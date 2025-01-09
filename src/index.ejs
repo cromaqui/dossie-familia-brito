@@ -6,13 +6,10 @@
   <body>
     <% if (content.header) { %>
     <header class="page-header">
-      <% if (!utilities.isWrappedInParagraphTags(content.header)) { %>
-      <p>
-        <% } %> <%- content.header %> <% if (!utilities.isWrappedInParagraphTags(content.header)) {
-        %>
-      </p>
-
-      <p><% } %></p>
+        <h1>
+          <%- content.header.title %>
+        </h1>
+        <p><%- content.header.subtitle %></p>
     </header>
 
     <% } %>
@@ -27,7 +24,7 @@
             <% content.filters.forEach(function(filter){ %>
             <li>
               <input type="checkbox" name="filter" id="<%= filter %>" checked />
-              <label for="<%= filter %>"><%- utilities.sentenceCase(filter) %> </label>
+              <label for="<%= filter %>"><%- filter %> </label>
             </li>
             <% }); %>
           </ul>
@@ -47,8 +44,8 @@
           </div>
           <div class="timeline-description">
             <span class="timestamp"
-              ><time datetime="<%- entry.datetime || entry.date %>"
-                ><%- utilities.humanizeDate(entry.datetime, entry.date) %></time
+              ><time datetime="<%- entry.date %>"
+                ><%- utilities.humanizeDate(entry.date) %></time
               ></span
             >
             <h2>
