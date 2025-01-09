@@ -33,7 +33,7 @@
       <article class="timeline">
         <% content.entries.forEach(function(entry){ %>
         <div
-          class="timeline-entry"
+          class="timeline-entry <%- (entry.body === '' || !entry.body) ? 'short' : '' %>"
           data-category="<%= entry.categoriesString %>"
           aria-hidden="false"
         >
