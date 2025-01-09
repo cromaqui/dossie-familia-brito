@@ -47,39 +47,47 @@
             <% } %>
           </div>
           <div class="timeline-description">
-            <span class="timestamp"
+            <div class="entry-wrapper">
+              <span class="timestamp"
               ><time datetime="<%- entry.date %>"
                 ><%- utilities.humanizeDate(entry.date) %></time
-              ></span
-            >
-            <h2>
-              <a id="<%= entry.id %>" href="#<%= entry.id %>"><i class="fas fa-link"></i></a><%-
-              entry.title %>
-            </h2>
-            <% if (entry.image) { %>
-            <div class="captioned-image image-right">
-              <% if (entry.image.link) { %><a href="<%= entry.image.link %>"
-                ><% } %>
-                <img src="<%= entry.image.src %>" alt="<%= entry.image.src %>" />
-                <% if (entry.image.link) { %></a
-              ><% } %> <% if (entry.image.caption) { %>
-              <span class="caption"><%- entry.image.caption %></span>
+              ></span>
+              <h2>
+                <a id="<%= entry.id %>" href="#<%= entry.id %>"><i class="fas fa-link"></i></a><%-
+                entry.title %>
+              </h2>
+              <% if (entry.image) { %>
+              <div class="captioned-image image-right">
+                <% if (entry.image.link) { %><a href="<%= entry.image.link %>"
+                  ><% } %>
+                  <img src="<%= entry.image.src %>" alt="<%= entry.image.src %>" />
+                  <% if (entry.image.link) { %></a
+                ><% } %> <% if (entry.image.caption) { %>
+                <span class="caption"><%- entry.image.caption %></span>
+                <% } %>
+              </div>
+              <% } %> <% if (!utilities.isWrappedInParagraphTags(entry.body)) { %>
+              <p>
+                <% } %> <%- entry.body %> <% if (!utilities.isWrappedInParagraphTags(entry.body)) { %>
+              </p>
+              <% } %> <% if (entry.links) { %>
+              <ul class="entry-links-list">
+                <% entry.links.forEach(function (link) { %>
+                <li>
+                  <a href="<%= link.href %>" target="_blank"><%- link.linkText %></a><%-
+                  link.extraText %>
+                </li>
+                <% }) %>
+              </ul>
               <% } %>
             </div>
-            <% } %> <% if (!utilities.isWrappedInParagraphTags(entry.body)) { %>
-            <p>
-              <% } %> <%- entry.body %> <% if (!utilities.isWrappedInParagraphTags(entry.body)) { %>
-            </p>
-            <% } %> <% if (entry.links) { %>
-            <ul>
-              <% entry.links.forEach(function (link) { %>
-              <li>
-                <a href="<%= link.href %>" target="_blank"><%- link.linkText %></a><%-
-                link.extraText %>
-              </li>
-              <% }) %>
-            </ul>
-            <% } %>
+            <div class="entry-footer">
+              <ul class="entry-categories-list">
+                <% entry.categories.forEach(function (category, index) { %>
+                <li class="entry-category"><%- category %><%- index !== entry.categories.length - 1 ? ', ' : '' %></li>
+                <% }) %>
+              </ul>
+            </div>
           </div>
         </div>
         <% }); %>
