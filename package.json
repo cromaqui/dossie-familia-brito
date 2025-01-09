@@ -33,5 +33,9 @@
     "eslint-plugin-prettier": "^4.0.0",
     "moment": "^2.29.1",
     "postcss": "^8.4.20"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-regular-svg-icons": "^6.7.2"
   }
 }

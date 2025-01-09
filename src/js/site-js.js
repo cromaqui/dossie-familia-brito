@@ -87,6 +87,26 @@ function onload() {
   });
   document.querySelector('input[type="checkbox"]#all').addEventListener('click', checkAll);
 
+  /* Back to top button */
+  const btnBackToTop = document.querySelector('.btn-back-to-top');
+  const header = document.querySelector('.page-header');
+
+  btnBackToTop.addEventListener('click', function (event) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    (entries[0].isIntersecting ? btnBackToTop.classList.add('hide') : btnBackToTop.classList.remove('hide'))
+  });
+
+  window.addEventListener('scroll', () => {
+    observer.unobserve(header);
+    observer.observe(header);
+  });
+
   /* Flow entries */
   reflowEntries();
 
