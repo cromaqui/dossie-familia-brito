@@ -3,6 +3,7 @@ const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 
 module.exports = function (eleventyConfig) {
+  
   eleventyConfig.addPlugin(pluginSass, {
     postcss: postcss([autoprefixer]),
     input: './src/css/*.sass',
@@ -11,6 +12,18 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/css/*.css');
   eleventyConfig.addPassthroughCopy('src/js');
   eleventyConfig.addPassthroughCopy('src/img');
+  eleventyConfig.setServerOptions({
+    liveReload: true,
+    domDiff: true,
+    port: 3000,
+    watch: [],
+    showAllHosts: true,
+    encoding: "utf-8",
+    showVersion: false,
+    indexFileName: "index.html",
+    onRequest: {},
+  });
+
   return {
     dir: {
       input: 'src',
