@@ -226,7 +226,35 @@ footer.page-footer
 	clear: both
 	margin-top: 30px
 
-.entry
+.youtube-embed
+	width: 100%
+	display: flex
+	justify-content: center
+	padding: 16px 0
+
+	iframe.horizontal-video
+		height: 135px
+		width: 240px
+
+		@media only screen and (min-width: $sm)
+			height: 180px
+			width: 320px
+
+		@media only screen and (min-width: $md)
+			height: 270px
+			width: 480px
+
+		@media only screen and (min-width: $lg)
+			height: 360px
+			width: 640px
+
+	iframe.vertical-video
+		height: 380px
+		width: 214px
+
+		@media only screen and (min-width: $sm)
+			height: 480px
+			width: 270px
 
 .attribution
 	width: 90%
