@@ -1,9 +1,11 @@
+<% const title = `${pageTitle} – ${site.title}` %> 
+<% const currentUrl = site.url + page.url %>
+
 <meta charset="utf-8" />
-<title><%= head.title %></title>
-<% if (head.description) { %>
-<meta name="description" content="<%= head.description %>" />
-<% } %> <% if (head.author) { %>
-<meta name="author" content="<%= head.author %>" />
+<title><%= title %></title>
+
+<% if (site.authorName) { %>
+<meta name="author" content="<%= site.authorName %>" />
 <% } %>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link
@@ -15,6 +17,22 @@
 <link rel="stylesheet" href="css/normalize.css" />
 <link rel="stylesheet" href="css/main.css" />
 <link rel="icon" type="image/png" href="img/favicon.png" />
-<meta property="og:title" content="<%= head.title %>" />
+<meta property="og:site_name" content="<%= site.title %>" />
+<meta property="og:title" content="<%= title %>" />
 <meta property="og:type" content="article" />
+<meta property="og:url" content="<%= site.url %>" />
 <meta property="og:image" content="img/og-image.jpg" />
+
+<% if (site.socialImage) { %>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="{{ socialImage }}" />
+  <meta name="twitter:image" content="{{ socialImage }}" />
+  <meta property="og:image:alt" content="Page image for {{ site.name }}" />
+  <meta name="twitter:image:alt" content="Page image for {{ site.name }}" />
+<% } %>
+
+<% if (site.summary) { %>
+  <meta name="description" content="<%= site.summary %>" />
+  <meta name="twitter:description" content="<%= site.summary %>" />
+  <meta property="og:description" content="<%= site.summary %>" />
+<% } %>

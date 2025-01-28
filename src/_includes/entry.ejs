@@ -1,0 +1,61 @@
+<div
+  class="timeline-entry <%- (entry.body === '' || !entry.body) ? 'short' : '' %>"
+  data-category="<%= entry.categoriesString %>"
+  aria-hidden="false"
+>
+  <div class="timeline-icon <%- entry.color || 'grey' %>" title="<%= entry.faicon %>">
+    <% if (entry.faicon) { %>
+      <i class="fas fa-<%= entry.faicon %>" aria-hidden="true"></i>
+      <% } %>
+  </div>
+  <div class="timeline-description">
+    <div class="entry-wrapper">
+      <div class="entry-header">
+        <span class="timestamp">
+          <time datetime="<%- entry.date %>">
+            <%- utilities.humanizeDate(entry.date) %></time>
+        </span>
+        <div class="entry__share-links">
+          <a id="<%= entry.id %>" href="#<%= entry.id %>"><i class="fas fa-link"></i></a>
+          <a class="fa-brands fa-bluesky entry__share-link" href="<%= utilities.shareEntryOnSocialMedia('bluesky', entry) %>" target="_blank"><span class="sr-only">Compartilhe no Bluesky</span></a>
+          <a class="fa-brands fa-x-twitter entry__share-link" href="<%= utilities.shareEntryOnSocialMedia('x', entry) %>" target="_blank"><span class="sr-only">Compartilhe no X</span></a>
+        </div>
+      </div>
+      <h2><%- entry.title %></h2>
+      <% if (!utilities.isWrappedInParagraphTags(entry.body)) { %>
+        <p>
+        <% } %> <%- entry.body %> <% if (!utilities.isWrappedInParagraphTags(entry.body)) { %>
+        </p>
+        <% } %> 
+        <% if (entry.youtubeVideoId) { %>
+          <div class="youtube-embed">
+              <iframe 
+              class="<%= entry.isVertical ? 'vertical-video' : 'horizontal-video' %>"
+              src="https://www.youtube.com/embed/<%= entry.youtubeVideoId %>" 
+              title="YouTube video player" 
+              frameborder="0"
+              playsinline 
+              allowfullscreen>
+            </iframe>
+          </div>
+        <% } %>
+        <% if (entry.links) { %>
+          <ul class="entry-links-list">
+            <% entry.links.forEach(function (link) { %>
+              <li>
+                <a href="<%= link.href %>" target="_blank"><%- link.linkText %></a><%-
+                link.extraText %>
+              </li>
+              <% }) %>
+            </ul>
+            <% } %>
+    </div>
+    <div class="entry-footer">
+      <ul class="entry-categories-list">
+        <% entry.categories.forEach(function (category, index) { %>
+          <li class="entry-category"><%- category %><%- index !== entry.categories.length - 1 ? ', ' : '' %></li>
+          <% }) %>
+      </ul>
+    </div>
+  </div>
+</div>
