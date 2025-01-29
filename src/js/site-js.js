@@ -8,52 +8,6 @@ function hide(el) {
   el.setAttribute('aria-hidden', true);
 }
 
-function hideUnchecked() {
-  /* Uncheck the "all" box if one of the filter boxes is unchecked */
-  var allBoxes = document.querySelectorAll('input[type="checkbox"][name="filter"]');
-  var checkedBoxes = document.querySelectorAll('input[type="checkbox"][name="filter"]:checked');
-  if (checkedBoxes.length < allBoxes.length) {
-    document.querySelector('input[type="checkbox"]#all').checked = false;
-  } else {
-    document.querySelector('input[type="checkbox"]#all').checked = true;
-  }
-
-  var activeFilters = [];
-  checkedBoxes.forEach(function (filter) {
-    activeFilters.push(filter.id);
-  });
-
-  var entries = document.getElementsByClassName('timeline-entry');
-  for (var i = 0; i < entries.length; i++) {
-    var entry = entries[i];
-    var categories = [];
-    try {
-      categories = entry.dataset.category.split(',').filter((category) => category.length > 0);
-    } catch {
-      // Pass
-    }
-    if (categories.length && !isItemInCategories(categories, activeFilters)) {
-      hide(entry);
-    } else {
-      show(entry);
-    }
-  }
-
-  reflowEntries();
-}
-
-function checkAll() {
-  var checkboxes = document.querySelectorAll('input[type="checkbox"][name="filter"]');
-  checkboxes.forEach(function (box) {
-    box.checked = true;
-  });
-  var entries = document.getElementsByClassName('timeline-entry');
-  for (var i = 0; i < entries.length; i++) {
-    show(entries[i]);
-  }
-  reflowEntries();
-}
-
 function isItemInCategories(categories, visibleCategories) {
   return visibleCategories.some(function (id) {
     return categories.indexOf(id) >= 0;
@@ -92,13 +46,7 @@ function onload() {
   var root = document.documentElement;
   root.classList.remove('no-js');
 
-  /* Listen for filter changes */
-  document.querySelectorAll('input[type="checkbox"][name="filter"]').forEach(function (box) {
-    box.addEventListener('click', hideUnchecked);
-  });
-  document.querySelector('input[type="checkbox"]#all').addEventListener('click', checkAll);
-
-  document.querySelector('.btn-sort-entries').addEventListener('click', function () {
+  document.querySelector('.filters__sort-button').addEventListener('click', function () {
     const icon = this.querySelector('.fas');
     const textElement = this.querySelector('.sort-text');
 
@@ -116,6 +64,27 @@ function onload() {
 
     reflowEntries(true);
   });
+
+  const expandFiltersButton = document.querySelector('.filters__expand-button');
+
+  expandFiltersButton.addEventListener('click', function (event) { 
+    event.preventDefault();
+    
+    const filterOptions = document.querySelector('.filters__options');
+    const icon = this.querySelector('.fas');
+
+    if (!filterOptions.classList.contains('expanded')) {
+      this.setAttribute('aria-expanded', 'true');
+      filterOptions.classList.add('expanded');
+      icon.classList.remove('fa-caret-down');
+      icon.classList.add('fa-caret-up');
+    } else {
+      this.setAttribute('aria-expanded', 'false');
+      filterOptions.classList.remove('expanded');
+      icon.classList.remove('fa-caret-up');
+      icon.classList.add('fa-caret-down');
+    }
+  })
 
   /* Back to top button */
   const btnBackToTop = document.querySelector('.btn-back-to-top');
@@ -135,6 +104,25 @@ function onload() {
   window.addEventListener('scroll', () => {
     observer.unobserve(header);
     observer.observe(header);
+  });
+
+  new SlimSelect({
+    select: '#categories',
+    settings: {
+      focusSearch: false,
+      hideSelected: true,
+      placeholderText: 'Categorias',
+      searchPlaceholder: 'Pesquisar...'
+    },
+  });
+
+  new SlimSelect({
+    select: '#years',
+    settings: {
+      placeholderText: 'Anos',
+      hideSelected: true,
+      showSearch: false
+    },
   });
 
   /* Flow entries */

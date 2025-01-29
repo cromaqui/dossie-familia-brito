@@ -15,26 +15,44 @@
         </p>
     </header>
     <section>
-      <div class="timeline-filter-wrapper">
-        <header class="timeline-filter">
-          <ul>
-            <li>
-              <input type="checkbox" name="filter-shortcut" id="all" checked />
-              <label for="all">All</label>
-            </li>
-            <% content.filters.forEach(function (filter) { %>
-              <li>
-                <input type="checkbox" name="filter" id="<%= filter %>" checked />
-                <label for="<%= filter %>"><%- filter %> </label>
-              </li>
-            <% }); %>
-          </ul>
-        </header>
-        <button class="btn-sort-entries" data-sort="asc">
+      <header class="timeline-filters">
+      <div class="timeline-filters-wrapper">
+        <button class="filters__expand-button" aria-expanded="false">
+          Filtrar e procurar
           <i class="fas fa-caret-down" aria-hidden="true"></i>
-          <span class="sort-text">Mais antigo</span>
         </button>
+        <div class="filters__options">
+          <div class="filters__select-by-wrapper">
+            <span class="filters__label">Filtrar por:</span>
+            <% if (content.categories && content.categories.length > 0) { %>
+              <select id="categories" class="filter-select filter-select--categories" multiple>
+                <% content.categories.forEach(function (filter) { %>
+                  <option value="<%= filter %>"><%= filter %></option>
+                <% }); %>
+              </select>
+            <% } %>
+            <% if (content.years && content.years.length > 0) { %>
+              <select id="years" class="filter-select filter-select--years" multiple>
+                <% content.years.forEach(function (filter) { %>
+                  <option value="<%= filter %>"><%= filter %></option>
+                <% }); %>
+              </select>
+            <% } %>
+            <div class="filter-highlighted-wrapper">
+              <input type="checkbox" id="filter-highlighted" name="filter-highlighted" />
+              <label for="filter-highlighted">Apenas destaques</label>
+            </div>
+          </div>
+          <div class="filters__search-sort-wrapper">
+            <input class="filters__search-input" type="text" placeholder="Escreva aqui para pesquisar..." />
+            <button class="filters__sort-button" data-sort="asc">
+              <i class="fas fa-caret-down" aria-hidden="true"></i>
+              <span class="sort-text">Mais antigo</span>
+            </button>
+          </div>            
+        </div>
       </div>
+      </header>
       <article class="timeline">
         <% content.entries.forEach(function (entry) { %>
           <%- include('/entry', { entry }) %>

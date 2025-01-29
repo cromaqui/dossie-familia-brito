@@ -2902,7 +2902,7 @@ const entries = [
 ];
 
 // DON'T EDIT BELOW THIS LINE! --------------------------------------------------------------------
-const getFilters = (entries) => {
+const getCategories = (entries) => {
   const filters = new Set();
   for (var i = 0; i < entries.length; i++) {
     var entry = entries[i];
@@ -2917,6 +2917,19 @@ const getFilters = (entries) => {
   return filtersArray;
 };
 
+const getYears = (entries) => {
+  const filters = new Set();
+
+  entries.forEach((entry) => {
+    if (entry.date) filters.add(new Date(entry.date).getFullYear());
+  });
+
+  const filtersArray = [...filters];
+  filtersArray.sort();
+
+  return filtersArray;
+};
+
 const addCategoriesStringsToEntries = (entries) => {
   for (const entry of entries) {
     if (Object.prototype.hasOwnProperty.call(entry, 'categories')) {
@@ -2928,5 +2941,6 @@ const addCategoriesStringsToEntries = (entries) => {
 
 module.exports = {
   entries: addCategoriesStringsToEntries(entries),
-  filters: getFilters(entries),
+  categories: getCategories(entries),
+  years: getYears(entries),
 };
