@@ -15,9 +15,20 @@ body
 	font-family: 'Hind Vadodara', sans-serif
 
 h1
-	font-family: 'Roboto Slab', serif
+	font-family: 'Sour Gummy', serif
+	font-weight: 800
+	font-size: 3.5rem
+	padding: 0 16px
 	margin-top: 0
-	color: $title-color
+	color: #3f01b0
+	background-image: linear-gradient(45deg, #3f01b0 0%, #cb0fbc 66%, #ee2b44 100%)
+	background-clip: text
+	-webkit-background-clip: text
+	-webkit-text-fill-color: transparent
+
+	@media only screen and (min-width: $md)
+		font-size: 4.5rem
+		padding: 0
 
 a
 	text-decoration: none
@@ -29,16 +40,18 @@ a
 
 header.page-header,
 footer.page-footer
-	background-color: $header-footer-background
+	background: linear-gradient(45deg, rgba(255,225,179,1) 0%, rgba(253,213,163,1) 21%, rgba(251,185,104,1) 84%, rgba(254,135,69,1) 97%)
 	padding: 50px 0
 	text-align: center
 
 	p
 		width: 80%
-		max-width: 1400px
+		max-width: 640px
 		line-height: 120%
-		color: #eee
+		color: #f75002
 		margin: 0px auto 10px auto
+		font-size: 1.5rem
+		font-weight: 700
 
 	a
 		color: $header-footer-link-color
@@ -92,7 +105,7 @@ footer.page-footer
 		flex-flow: row
 		justify-content: space-between
 		height: 56px
-	
+
 .filters__label
 	display: none
 
