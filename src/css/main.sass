@@ -243,16 +243,22 @@ footer.page-footer
 		line-height: 40px
 
 .timeline-description
+	border-radius: 8px
 	box-sizing: border-box
 	position: relative
 	width: 45%
 	background-color: $card-background
-	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3)
+	box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.3)
 	display: inline-block
 	z-index: 1
 
 	.timestamp
-		font-size: 0.9rem
+		font-size: 0.8rem
+		margin-left: 12px
+
+		@media screen and (min-width: $xs)
+			font-size: 0.95rem
+			margin-left: 0
 
 		.note
 			color: $timestamp-color
@@ -260,7 +266,7 @@ footer.page-footer
 	h2
 		font-family: 'Roboto Slab', serif
 		line-height: 110%
-		margin: 5px 0
+		margin: 0
 		-webkit-margin-before: 5px
 		-webkit-margin-after: 5px
 
@@ -275,10 +281,9 @@ footer.page-footer
 				visibility: visible
 				opacity: 0.5
 
-	p, .entry-links-list
-		margin: 5px 0 10px 0
-		-webkit-margin-before: 5px
-		-webkit-margin-after: 10px
+	p
+		margin: 0
+		line-height: 1.25rem
 
 	img
 		max-width: 150px
@@ -287,6 +292,18 @@ footer.page-footer
 	.landscape
 		img
 			max-width: 200px
+
+	.entry-links-list
+		margin: 0
+
+		li
+			margin-bottom: 8px
+
+			@media only screen and (min-width: $md)
+				margin-bottom: 12px
+
+			&:last-child
+				margin-bottom: 0
 
 .timeline-screen-bottom
 	position: fixed
@@ -299,17 +316,19 @@ footer.page-footer
 		right: 30px
 
 
-.entry-wrapper 
-	padding: 16px 16px 0 16px
+.entry-wrapper
+	display: flex
+	flex-direction: column
+	gap: 12px
+	padding: 16px
 
 	@media only screen and (min-width: $sm)
-		padding: 20px 20px 0px 20px
+		padding: 20px
 
 .entry-header
 	align-items: center
 	display: flex
 	justify-content: space-between
-	padding-bottom: 8px
 
 .entry__share-links
 	display: flex
@@ -471,6 +490,9 @@ footer.page-footer
 		width: 90%
 
 @media only screen and (max-width: 414px)
+	.timeline-description
+		width: 100%
+
 	.timeline-description img,
 	.captioned-image
 		max-width: none
@@ -490,7 +512,7 @@ footer.page-footer
 
 	.timeline-entry.odd .timeline-description,
 	.timeline-entry.even .timeline-description
-		margin-left: 35px
+		margin-left: 0
 
 // DARK MODE
 @media (prefers-color-scheme: dark)

@@ -22,11 +22,11 @@
         </div>
       </div>
       <h2><%- entry.title %></h2>
-      <% if (!utilities.isWrappedInParagraphTags(entry.body)) { %>
+      <% if (entry.body !== "") { %>
         <p>
-        <% } %> <%- entry.body %> <% if (!utilities.isWrappedInParagraphTags(entry.body)) { %>
+          <%- entry.body %> 
         </p>
-        <% } %> 
+      <% } %> 
         <% if (entry.youtubeVideoId) { %>
           <div class="youtube-embed">
               <iframe 
